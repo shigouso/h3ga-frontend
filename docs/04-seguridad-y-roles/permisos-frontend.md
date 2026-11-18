@@ -26,3 +26,7 @@ El auxiliar no está autorizado en las rutas de clientes mostradas. El rol `admi
 
 ## Regla esencial
 Ocultar o deshabilitar acciones no autorizadas mejora UX, pero **no es seguridad suficiente**. La API debe validar rol, propiedad del cliente y asignación activa.
+
+## Trazabilidad de permisos de Gestión de Auxiliares
+
+RF-40 y RF-42: asignación de auxiliares y creación de tareas a cargo del asesor. RF-41: consulta de asignaciones activas. RF-43–45: consulta de tareas y elaboración/actualización de documentos por auxiliar, respetando permisos. RF-46–47 y RF-49: revisión, validación y consulta del estado de documentos por asesor. RF-48: corrección con nuevas versiones e historial. RF-50: auxiliar solo elimina archivos propios, sujeto a conservación documental. RF-51: estados de tareas pendientes, completadas o canceladas. La UI no reemplaza validaciones del backend.

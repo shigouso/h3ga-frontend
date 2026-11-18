@@ -25,3 +25,6 @@ Shell, navegación, encabezados, tablas/listados, filtros, formularios, alertas,
 
 ## Sustento
 IS_26: RNF-03 usabilidad, RNF-01 rendimiento y matriz de roles. La elección exacta de colores y exigencia de cuatro tamaños son instrucciones visuales actuales del usuario.
+
+## Actualización de alcance oficial
+El PDF IS_26 actualizado incluye **RF-40–RF-51 de Gestión de Auxiliares** (Tabla 10). Toda referencia visual, arquitectura o integración de este módulo debe contemplar tareas, asignaciones, revisión, versiones y permisos; no supone que sus endpoints estén implementados. Los colores y las tipografías existentes permanecen sin cambios.

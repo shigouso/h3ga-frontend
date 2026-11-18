@@ -26,3 +26,6 @@ docs/
 - No asumir que el prefijo global HTTP es `/api` sin verificar.
 - La interfaz de Gestión de Auxiliares y Gestión Documental puede tener carpetas de componentes separadas, compartiendo componentes de tareas y documentos cuando proceda.
 - Priorizar rutas reales y flujos documentados sobre scaffolding excesivo.
+
+## Actualización de alcance oficial
+El PDF IS_26 actualizado incluye **RF-40–RF-51 de Gestión de Auxiliares** (Tabla 10). Toda referencia visual, arquitectura o integración de este módulo debe contemplar tareas, asignaciones, revisión, versiones y permisos; no supone que sus endpoints estén implementados. Los colores y las tipografías existentes permanecen sin cambios.

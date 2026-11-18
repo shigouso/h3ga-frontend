@@ -13,7 +13,7 @@ Este inventario propone **pantallas para cubrir funciones documentadas**; no afi
 | Proceso Final y Cobranza | RF-19–23 | Seguimiento IMSS/ISSSTE, AFORE, solicitud de pensión, resoluciones, cobranza final |
 | Servicios Complementarios | RF-24–37 | Solicitud, catálogo (Mejoravit, desempleo, préstamos, PPR), otro servicio, formularios por tipo, requisitos, seguimiento, edición/eliminación, exportación PDF/Word |
 | Migración de datos | RF-38–39 | Estado de importación Excel solo si existe API autorizada; proceso principal es servicio backend NestJS/SheetJS |
-| Gestión de Auxiliares | Matriz de roles IS_26 pp. 49–50; tabla `cliente_auxiliares` en diccionario | Asignación por cliente, solicitudes del asesor, tareas/entregas, revisión y observaciones. **Sin RF numérico oficial propio en el PDF inspeccionado** |
+| Gestión de Auxiliares | RF-40–RF-51 (Tabla 10 oficial); tabla `cliente_auxiliares` en diccionario | Asignación por cliente, solicitudes del asesor, tareas/entregas, revisión y observaciones. **Requisitos oficiales RF-40–RF-51 confirmados en el PDF actualizado** |
 
 ## Flujo documental (matriz de roles)
 Asesor solicita documento → auxiliar elabora y carga → asesor valida, aprueba u observa → auxiliar corrige → aprobación. El auxiliar solo puede eliminar archivos generados por sí mismo.

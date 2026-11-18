@@ -23,3 +23,12 @@
 - [ ] Capturas por pantalla/tamaño para documentar resultados, si procede.
 - [ ] Informe final separa páginas terminadas, API conectada y pendientes.
 - [ ] No se afirma cumplimiento de RNF-01 (3 s consultas, 5 s PDF) sin medición.
+
+## Criterios específicos RF-40–RF-51
+- [ ] Asignar auxiliares a clientes propios y consultar asignaciones activas (RF-40–41).
+- [ ] Crear tareas con título/instrucciones y mostrar tareas asignadas con cliente/estado (RF-42–43).
+- [ ] Subir, descargar y actualizar documentos con permisos verificados (RF-44–45).
+- [ ] Revisar, aprobar u observar documentos y consultar estados pendiente/no validado/validado/cancelado (RF-46–47, RF-49).
+- [ ] Conservar historial al cargar correcciones (RF-48).
+- [ ] Impedir eliminación de archivos ajenos y respetar conservación (RF-50).
+- [ ] Actualizar estados pendiente/completada/cancelada (RF-51).
