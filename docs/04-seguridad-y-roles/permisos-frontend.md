@@ -1,32 +1,48 @@
-# Seguridad y permisos — Frontend
+# Permisos y seguridad del frontend — H3GA
 
-## Fuentes
-IS_26, matriz de roles y funciones (pp. 49–50); AGENTS vigente del backend; `jwt-auth.guard.ts`, `roles.decorator.ts` y `clientes.controller.ts`.
+## Fuente técnica principal
+`app/types/sesion.ts`, `app/utils/permisos.ts`, `app/utils/menu.ts`, `app/middleware/auth.global.ts` y `app/stores/session.ts`, revisados en `main` (2026-11-23). Los nombres técnicos vigentes de rol en el frontend son **`asesor`, `auxiliar`, `supervisor`**. La tabla de requerimientos usa denominaciones narrativas «auxiliar administrativo» y «supervisión operativa»: no sustituir los valores del código por estas etiquetas sin comprobar el contrato.
 
-## Roles
-- `asesor`
-- `auxiliar administrativo`
-- `administrador` (corresponde al perfil de supervisión operativa según AGENTS backend)
+## Navegación observada (`RUTAS_POR_ROL`)
+| Rol | Rutas base habilitadas por el frontend |
+|---|---|
+| `asesor` | `/`, `/clientes`, `/agenda`, `/avisos`, `/reportes`, `/pension-final`, `/modalidades`, `/servicios-complementarios`, `/diagnosticos`, `/correcciones`, `/biblioteca`, `/configuracion` |
+| `auxiliar` | `/`, `/clientes`, `/agenda`, `/avisos`, `/gestion-documental`, `/biblioteca`, `/configuracion` |
+| `supervisor` | `/`, `/clientes`, `/agenda`, `/avisos`, `/reportes`, `/usuarios`, `/formatos-institucionales`, `/configuracion` |
 
-## Operaciones documentadas
-| Función | Asesor | Auxiliar administrativo | Administrador/supervisor |
-|---|---|---|---|
-| Administrar expedientes de sus clientes | Sí | Apoyo documental autorizado | IS_26: consulta documental |
-| Solicitar elaboración de documentos | Sí | Recibe solicitudes | No se documenta |
-| Elaborar/cargar/corregir documentos solicitados | Revisa y valida | Sí | No se documenta |
-| Aprobar u observar entregas de auxiliar | Sí | Atiende observaciones | No se documenta |
-| Eliminar documentos generados por otros | No inferir | **No** | No inferir |
-| Consultar avances/reportes | Seguimiento propio | Según alcance | Sí, supervisión |
-| Agenda | Sí | Sí | Consulta según IS_26 |
+**Importante:** una ruta autorizada en `permisos.ts` no implica que exista su archivo `app/pages/` ni que el backend permita la operación. `menu.ts` usa esas rutas para construir la navegación. El middleware redirige a `/login` sin sesión y a `/` si la ruta no está autorizada.
 
-**Decisión actual de producto:** no crear interfaz operativa de administrador para Gestión de Auxiliares o Gestión Documental. La memoria sí menciona consulta documental de supervisión; mantenerla como diferencia explícita y no inventar un permiso operativo.
+## Acciones observadas (`ACCIONES_POR_ROL`)
+| Acción | Roles admitidos por el frontend |
+|---|---|
+| `clientes.crear`, `clientes.editar` | asesor |
+| `clientes.reasignar` | supervisor |
+| `f0.ver` | asesor, supervisor |
+| `f1.ver` | asesor |
+| `etapas.cambiarEstatus` | asesor |
+| `auxiliares.autorizar` | asesor |
+| `auxiliares.ver` | asesor, supervisor |
+| `documentos.subir`, `documentos.revisar` | asesor, auxiliar |
+| `agenda.escribir` | asesor |
+| `reportes.ver` | asesor, supervisor |
+| `usuarios.administrar` | supervisor |
 
-## Advertencia sobre clientes.controller.ts
-El auxiliar no está autorizado en las rutas de clientes mostradas. El rol `administrador financiero` aparece en lectura, pero no es equivalente a `auxiliar administrativo`. El frontend no debe resolverlo saltándose la API.
+Esta es una **transcripción de reglas UI existentes**, no una validación de permisos reales del backend. No inferir nuevas acciones a partir de las rutas ni de las capturas Figma. La tabla funcional de RF define el alcance; cada permiso efectivo se verifica con backend.
 
-## Regla esencial
-Ocultar o deshabilitar acciones no autorizadas mejora UX, pero **no es seguridad suficiente**. La API debe validar rol, propiedad del cliente y asignación activa.
+## Sesión y protección
+- `session.ts` guarda token, usuario y vencimiento en Pinia + `sessionStorage`; no usar `localStorage` ni incluir token en URL o logs.
+- `auth.global.ts` protege navegación; el backend debe validar JWT, rol, propiedad, asignación y acceso a documentos.
+- No mostrar botones para operaciones no autorizadas; no intentar eludir un `403` desde el frontend.
+- Evitar que el rediseño de layouts, sidebar, menús o modales rompa la lógica de sesión, el cierre de sesión o los controles por rol.
 
-## Trazabilidad de permisos de Gestión de Auxiliares
+## Discrepancias que requieren revisión con backend
+La documentación histórica menciona valores como `administrador` y `auxiliar administrativo`, mientras el código actual usa `supervisor` y `auxiliar`. Verificar mapeo real con Swagger/DTO/backend antes de cambiar roles o permisos. No equiparar `administrador financiero` a ninguno de estos perfiles.
 
-RF-40 y RF-42: asignación de auxiliares y creación de tareas a cargo del asesor. RF-41: consulta de asignaciones activas. RF-43–45: consulta de tareas y elaboración/actualización de documentos por auxiliar, respetando permisos. RF-46–47 y RF-49: revisión, validación y consulta del estado de documentos por asesor. RF-48: corrección con nuevas versiones e historial. RF-50: auxiliar solo elimina archivos propios, sujeto a conservación documental. RF-51: estados de tareas pendientes, completadas o canceladas. La UI no reemplaza validaciones del backend.
+## Alcance visual por rol acordado para Figma
+| Rol | Módulos principales a maquetar |
+|---|---|
+| Asesor (`asesor`) | Gestión auxiliar, modalidades, pensión final, servicios complementarios, biblioteca, dashboard y vista expediente del cliente (acceso «Ver expediente») |
+| Auxiliar (`auxiliar`) | Biblioteca, gestión documental, dashboard |
+| Supervisión/administrador (`supervisor`) | Formatos institucionales, dashboard |
+
+Esta distribución es una **decisión de navegación/diseño solicitada**, no una confirmación de autorización del backend. Actualmente `app/utils/permisos.ts` permite también otras rutas; no suprimir ni conceder accesos sin revisar requerimientos, comportamiento existente y backend. Las vistas compartidas se reutilizan y las operaciones se muestran según permisos efectivos.
