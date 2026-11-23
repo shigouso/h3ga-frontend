@@ -1,29 +1,23 @@
-# Prompt 2 — Etapa 1: maquetar todas las interfaces H3GA
+# Prompt 2 — Implementar las interfaces H3GA
 
-Ejecuta el plan aprobado del Prompt 1, **solo en su etapa de maquetación**, sobre el frontend Nuxt actual.
+Ejecutar el plan aprobado del Prompt 1 sobre el frontend existente. Trabajar módulo por módulo con visión global de consistencia.
 
-Fuentes: `AGENTS.md`, código real, tabla de requerimientos, diccionario como apoyo, cuatro guías técnicas, inventario y capturas en `docs/05-modulos/`.
+## Antes de cada módulo
+Leer filas de matriz, inventario, RF y capturas. Inspeccionar rutas, componentes, composables, stores, tipos y permisos. Enumerar interfaces, formularios, modales, estados y acciones. Registrar bloqueos en vez de inventar.
 
-## Diseño y responsividad
-- Reproduce las capturas **1920 desktop** y **1440 laptop** de cada pantalla, formulario y modal.
-- Genera las adaptaciones **1024 tablet** y **400 mobile** sin solicitar diseños adicionales. Una sola implementación responsiva, no páginas duplicadas.
-- Respeta los cinco HEX H3GA y los estilos definidos en `diseno-ui.md`. Revisa cuidadosamente la configuración real del tema.
-- Prioriza componentes de **Nuxt UI 4** y reutiliza Vue existente. Construye componentes compartidos solo cuando aporten reutilización real.
-- Alertas, notificaciones y estados `success`, `warning`, `info`, `error` con patrones Nuxt UI; confirmación destructiva con diálogo Nuxt UI, nunca `window.confirm()`.
+## Maquetación
+- Reproducir Figma 1920 y 1440; adaptar 1024, 400 y anchos intermedios.
+- Una interfaz fluida, no páginas por breakpoint.
+- Respetar paleta H3GA y tipografía efectiva; reconciliar tema con CSS/configuración antes de cambios globales.
+- Reutilizar Nuxt UI 4 y componentes existentes; comprobar APIs de la versión instalada.
+- Implementar páginas, secciones, formularios/campos, filtros, tablas, modales, disparadores, botones y estados definidos.
+- Mantener teclado, foco, contraste y controles táctiles.
+- Construir patrones globales para notificaciones, alertas, vacíos, errores y confirmaciones.
 
-## Módulos visuales
-- Asesor: gestión auxiliar, modalidades, pensión final, servicios complementarios, biblioteca, dashboard y expediente del cliente con botón «Ver expediente».
-- Auxiliar: biblioteca, gestión documental, dashboard.
-- Supervisor: formatos institucionales, dashboard.
-- Reutiliza biblioteca/dashboard y adapta visibilidad según rol. No suprimas otras rutas existentes sin autorización.
+## Límites
+Preservar autenticación, rutas, permisos, composables y llamadas API existentes. No agregar HTTP nuevo, endpoints, mocks ni éxitos ficticios. Acciones que dependan de integración nueva quedan identificadas como pendientes. No modificar backend, base de datos, almacenamiento ni contratos. No borrar/renombrar capturas.
 
-## Límites de esta etapa
-- **Preserva** autenticación, composables, llamadas API, permisos y comportamiento ya implementado.
-- Implementa navegación, estructura, formularios, modales y estados locales necesarios para probar visualmente las pantallas.
-- **No agregues integraciones HTTP nuevas**, no inventes endpoints ni simules una operación guardada como si hubiera ocurrido.
-- Si una acción depende de la segunda etapa, déjala claramente identificada como pendiente, sin botón que afirme éxito falso.
-- No modifiques backend ni generes commits, pushes o PR.
+## Cierre por módulo
+Completar todas las filas relacionadas; actualizar matriz/inventario; ejecutar verificaciones disponibles; revisar visualmente antes de avanzar. No dejar modales/estados identificados sin implementar o justificar. Reutilizar dashboard/biblioteca según rol.
 
-Trabaja módulo por módulo y continúa con los demás mientras tengas contexto suficiente. Después de cada módulo, ejecuta las verificaciones disponibles y compara visualmente 1920/1440/1024/400 con navegador si existe. No declares pruebas que no ejecutaste.
-
-Entrega módulos maquetados, archivos modificados, diferencias con Figma, resultados de pruebas y acciones pendientes de integración. **Detente al terminar la maquetación y espera aprobación antes de la etapa 2.**
+Al concluir etapa visual global, detenerse y solicitar aprobación antes de nuevas integraciones. Reportar archivos, módulos/interfaces, diferencias Figma, pruebas y bloqueos. No commits, push, PR, reset ni stash.
