@@ -6,7 +6,7 @@ Trabaja en el **repositorio frontend** de GESTIÓN H3GA. Lee primero `AGENTS.md`
 La única fuente oficial de alcance y requisitos es `IS_26_CHAN_MARTIN_LUIS_GAEL_DESARROLLO_SISTEMA_GESTION.pdf`. Complementa exclusivamente con `Diccionario de datos (1).md`, `Instructivo_Memoria_Unificado_V5.1.pdf`, el `AGENTS.md` vigente del backend y los archivos `jwt-auth.guard.ts`, `roles.decorator.ts`, `clientes.controller.ts`. Si no están copiados al frontend, usa los extractos fieles incluidos en `docs/` y solicita el original para decisiones no verificables. **No uses documentación anterior como fuente adicional**.
 
 ## Objetivo
-Crear las interfaces de los módulos documentados: autenticación, clientes/expedientes, Gestión de Auxiliares, Gestión Documental, Formatos Institucionales, Biblioteca, Dashboard, Modalidades de Pensión, Proceso Final y Cobranza, Servicios Complementarios y las funciones de migración que realmente requieran UI.
+Crear las interfaces de los módulos documentados, incluyendo expresamente **RF-40–RF-51 de Gestión de Auxiliares (Tabla 10 del PDF oficial)**: autenticación, clientes/expedientes, Gestión de Auxiliares, Gestión Documental, Formatos Institucionales, Biblioteca, Dashboard, Modalidades de Pensión, Proceso Final y Cobranza, Servicios Complementarios y las funciones de migración que realmente requieran UI.
 
 ## Diseño
 Nuxt + Vue + TypeScript y componentes **oficiales Nuxt UI** instalados. Responsivo para desktop, laptop, tablet y móvil. Colores: black `#011818`, white `#FCFCFC`, accent `#FFCC00`, secondary `#4ECAD4`, primary `#003D3D`. **No cambiar tipografías existentes.** Alertas semánticas success, warning, error/alert e info.

@@ -16,7 +16,7 @@ Interfaz web de GESTIÓN H3GA para centralizar información y expedientes de cli
 - En backend el rol supervisor se identifica como `administrador` según el AGENTS vigente.
 
 ## Requerimientos
-La tabla oficial RF-01–RF-39 y RNF-01–RNF-05 está transcrita en `requerimientos-funcionales-referencia.md`. No adoptar RF-40 en adelante sin actualizar formalmente la fuente oficial.
+La tabla oficial RF-01–RF-51 y RNF-01–RNF-05 está transcrita en `requerimientos-funcionales-referencia.md`. RF-40–RF-51 corresponden oficialmente a Gestión de Auxiliares (Tabla 10, páginas impresas 47–49).
 
 ## Límites
 La sección H3GA Finanzas del diccionario auxiliar **no forma parte del desarrollo de interfaces de escritura de Gestión**. La memoria contiene un modelo de datos amplio; una tabla existente en el diccionario no implica que su API esté desarrollada.

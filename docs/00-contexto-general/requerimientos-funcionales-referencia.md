@@ -1,6 +1,6 @@
 # Requerimientos funcionales y no funcionales — transcripción de IS_26
 
-**Fuente exclusiva:** `IS_26_CHAN_MARTIN_LUIS_GAEL_DESARROLLO_SISTEMA_GESTION.pdf`, sección de requerimientos, páginas impresas 41–48. Texto extraído del PDF, con saltos de línea originales; verificar visualmente las tablas si una fila queda partida.
+**Fuente exclusiva:** `IS_26_CHAN_MARTIN_LUIS_GAEL_DESARROLLO_SISTEMA_GESTION.pdf`, sección de requerimientos, páginas impresas 41–49. Texto extraído del PDF, con saltos de línea originales; verificar visualmente las tablas si una fila queda partida.
 
 **Fidelidad:** se conservan los códigos tal como aparecen, incluido `RF-9` (sin cero). No se incorporan RF propuestos en conversaciones previas ni se renombran requisitos. La matriz de roles de IS_26 se encuentra en las páginas 49–50.
 
@@ -275,4 +275,71 @@ acuerdo con las condiciones técnicas consideradas para el desarrollo del sistem
                        Asimismo, deberá contemplar mecanismos de respaldo periódico de
                        la información almacenada en PostgreSQL y DigitalOcean Spaces.
 Tabla 10 Requerimientos no funcionales. Fuente: Elaboración propia
+```
+
+## Tabla 10 — Gestión de Auxiliares (RF-40 a RF-51)
+
+**Fuente oficial:** IS_26 actualizado, páginas impresas 47–49. Transcripción de la tabla original:
+
+```text
+Tabla de requerimientos del módulo de Gestión de Auxiliares
+
+
+   Código         Descripción del Requisito Funcional
+
+
+    RF-40         El sistema debe permitir al asesor asignar y autorizar auxiliares
+                  administrativos a los clientes bajo su responsabilidad.
+
+
+    RF-41         El sistema debe permitir consultar las asignaciones de auxiliares
+                  administrativos por cliente, identificando cuáles se encuentran activas.
+
+RF-42   El sistema debe permitir al asesor crear tareas dirigidas a un auxiliar
+        administrativo asignado al cliente, especificando el título y las
+        instrucciones correspondientes.
+
+
+RF-43   El sistema debe permitir al auxiliar administrativo consultar las tareas que
+        le han sido asignadas, identificando el cliente relacionado, las
+        instrucciones y el estado de cada tarea.
+
+
+RF-44   El sistema debe permitir al auxiliar elaborar y cargar documentos
+        solicitados por el asesor, vinculándolos con el cliente y la tarea
+        correspondiente.
+
+
+RF-45   El sistema debe permitir al auxiliar descargar, editar y actualizar los
+        archivos oficiales y técnicos relacionados con la gestión documental de
+        los clientes, respetando sus permisos.
+
+
+RF-46   El sistema debe permitir al asesor consultar los documentos enviados
+        por el auxiliar y realizar su revisión.
+
+
+RF-47   El sistema debe permitir al asesor aprobar un documento o marcarlo
+        como no validado, registrando observaciones cuando requiera
+        correcciones.
+
+
+RF-48   El sistema debe permitir al auxiliar atender las observaciones del asesor
+        mediante la carga de nuevas versiones del documento, conservando las
+        versiones anteriores para mantener el historial de revisión.
+
+
+RF-49   El sistema debe permitir al asesor consultar el estado de revisión de los
+        documentos enviados por el auxiliar, identificando aquellos pendientes,
+        no validados, validados o cancelados.
+
+    RF-50          El sistema debe permitir al auxiliar eliminar únicamente los archivos que
+                   haya generado, respetando las restricciones de propiedad y
+                   conservación documental.
+
+
+    RF-51          El sistema debe permitir actualizar el estado de las tareas asignadas,
+                   identificando aquellas pendientes, completadas o canceladas.
+
+Tabla 10 Requerimientos funcionales de gestión de auxiliares. Fuente: Elaboración propia
 ```

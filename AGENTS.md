@@ -37,7 +37,7 @@ El nombre vigente es **GESTIÓN H3GA**. No cambiar nombres de código existentes
 - Aplicar protección visual por rol y cliente; el backend siempre valida la autorización real.
 
 ## Módulos y trazabilidad
-Autenticación RF-01–02; Gestión Documental RF-03–07; Formatos RF-08–12 (en PDF aparece `RF-9`); Biblioteca RF-13–14; Dashboard RF-15–16; Modalidades RF-17–18; Proceso Final RF-19–23; Servicios Complementarios RF-24–37; Migración RF-38–39. **Gestión de Auxiliares**: funcionalidad descrita en matriz de roles y en `cliente_auxiliares`; no atribuirle números RF inexistentes en el PDF oficial.
+Autenticación RF-01–02; Gestión Documental RF-03–07; Formatos RF-08–12 (en PDF aparece `RF-9`); Biblioteca RF-13–14; Dashboard RF-15–16; Modalidades RF-17–18; Proceso Final RF-19–23; Servicios Complementarios RF-24–37; Migración RF-38–39. **Gestión de Auxiliares RF-40–RF-51**: asignación y consulta de auxiliares, tareas, elaboración y actualización de documentos, revisión, validación, observaciones, historial de versiones, eliminación limitada por propiedad y estados de tareas. Son requisitos oficiales de la Tabla 10 del PDF actualizado.
 
 ## Backend y datos
 - Revisar rutas, DTO y respuestas reales antes de conectar acciones. `ClientesController` declara rutas relativas `/clientes` GET listado/detalle, POST alta y PATCH edición; prefijo global no verificado.
