@@ -290,7 +290,7 @@ async function guardar(): Promise<boolean> {
 // Para quien pone sus propios botones (los pasos del F0): valida y guarda; true si quedó guardado.
 async function enviar(): Promise<boolean> {
   try {
-    await formulario.value?.validate()
+    await formulario.value?.validate({})
   } catch {
     return false
   }
