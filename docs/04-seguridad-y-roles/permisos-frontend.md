@@ -1,48 +1,40 @@
 # Permisos y seguridad del frontend — H3GA
 
-## Fuente técnica principal
-`app/types/sesion.ts`, `app/utils/permisos.ts`, `app/utils/menu.ts`, `app/middleware/auth.global.ts` y `app/stores/session.ts`, revisados en `main` (2026-11-23). Los nombres técnicos vigentes de rol en el frontend son **`asesor`, `auxiliar`, `supervisor`**. La tabla de requerimientos usa denominaciones narrativas «auxiliar administrativo» y «supervisión operativa»: no sustituir los valores del código por estas etiquetas sin comprobar el contrato.
+## Fuente técnica
+Inspeccionar `app/types/sesion.ts`, `app/utils/permisos.ts`, `app/utils/menu.ts`, `app/middleware/auth.global.ts` y `app/stores/session.ts`. Roles técnicos observados: `asesor`, `auxiliar`, `supervisor`. No renombrar valores por etiquetas narrativas de los RF.
 
-## Navegación observada (`RUTAS_POR_ROL`)
-| Rol | Rutas base habilitadas por el frontend |
+## Distribución visual acordada
+| Rol | Módulos principales |
 |---|---|
-| `asesor` | `/`, `/clientes`, `/agenda`, `/avisos`, `/reportes`, `/pension-final`, `/modalidades`, `/servicios-complementarios`, `/diagnosticos`, `/correcciones`, `/biblioteca`, `/configuracion` |
-| `auxiliar` | `/`, `/clientes`, `/agenda`, `/avisos`, `/gestion-documental`, `/biblioteca`, `/configuracion` |
-| `supervisor` | `/`, `/clientes`, `/agenda`, `/avisos`, `/reportes`, `/usuarios`, `/formatos-institucionales`, `/configuracion` |
+| asesor | Gestión auxiliar, modalidades, pensión final/proceso final, servicios complementarios, biblioteca, dashboard y expediente desde «Ver expediente» |
+| auxiliar | Biblioteca, gestión documental y dashboard |
+| supervisor | Formatos institucionales y dashboard |
 
-**Importante:** una ruta autorizada en `permisos.ts` no implica que exista su archivo `app/pages/` ni que el backend permita la operación. `menu.ts` usa esas rutas para construir la navegación. El middleware redirige a `/login` sin sesión y a `/` si la ruta no está autorizada.
+Biblioteca/dashboard son compartidos. Reutilizar estructura y adaptar contenido/acciones. Esta tabla guía el diseño; no sustituye permisos reales del código/backend.
 
-## Acciones observadas (`ACCIONES_POR_ROL`)
-| Acción | Roles admitidos por el frontend |
-|---|---|
-| `clientes.crear`, `clientes.editar` | asesor |
-| `clientes.reasignar` | supervisor |
-| `f0.ver` | asesor, supervisor |
-| `f1.ver` | asesor |
-| `etapas.cambiarEstatus` | asesor |
-| `auxiliares.autorizar` | asesor |
-| `auxiliares.ver` | asesor, supervisor |
-| `documentos.subir`, `documentos.revisar` | asesor, auxiliar |
-| `agenda.escribir` | asesor |
-| `reportes.ver` | asesor, supervisor |
-| `usuarios.administrar` | supervisor |
+## Tres conceptos distintos
+1. Visibilidad: si aparece un control.
+2. Autorización frontend: rutas/acciones permitidas por el cliente.
+3. Autorización efectiva: validación backend de rol, propiedad, asignación y recurso.
 
-Esta es una **transcripción de reglas UI existentes**, no una validación de permisos reales del backend. No inferir nuevas acciones a partir de las rutas ni de las capturas Figma. La tabla funcional de RF define el alcance; cada permiso efectivo se verifica con backend.
+Una ruta visible no autoriza operación; ocultar botón no protege endpoint.
 
-## Sesión y protección
-- `session.ts` guarda token, usuario y vencimiento en Pinia + `sessionStorage`; no usar `localStorage` ni incluir token en URL o logs.
-- `auth.global.ts` protege navegación; el backend debe validar JWT, rol, propiedad, asignación y acceso a documentos.
-- No mostrar botones para operaciones no autorizadas; no intentar eludir un `403` desde el frontend.
-- Evitar que el rediseño de layouts, sidebar, menús o modales rompa la lógica de sesión, el cierre de sesión o los controles por rol.
+## Reglas
+- No cambiar roles, rutas, menú o permisos sin revisar código y contrato.
+- No conceder permisos por capturas o texto narrativo.
+- Ocultar/deshabilitar controles según reglas verificadas; tratar correctamente 403.
+- No mostrar acciones administrativas a perfiles operativos por conveniencia visual.
+- Preservar protección de rutas, logout y persistencia.
+- No registrar tokens, credenciales ni datos personales.
+- Documentos: validar asociación, autoría, asignación y conservación según backend.
+- Confirmación destructiva no reemplaza autorización backend.
 
-## Discrepancias que requieren revisión con backend
-La documentación histórica menciona valores como `administrador` y `auxiliar administrativo`, mientras el código actual usa `supervisor` y `auxiliar`. Verificar mapeo real con Swagger/DTO/backend antes de cambiar roles o permisos. No equiparar `administrador financiero` a ninguno de estos perfiles.
+## Matriz de verificación
+| Acción | Rol | Visible | Permitida frontend | Confirmada backend | Evidencia |
+|---|---|---|---|---|---|
+| Completar por acción | Por verificar | Por verificar | Por verificar | Por verificar | Archivo/endpoint/fecha |
 
-## Alcance visual por rol acordado para Figma
-| Rol | Módulos principales a maquetar |
-|---|---|
-| Asesor (`asesor`) | Gestión auxiliar, modalidades, pensión final, servicios complementarios, biblioteca, dashboard y vista expediente del cliente (acceso «Ver expediente») |
-| Auxiliar (`auxiliar`) | Biblioteca, gestión documental, dashboard |
-| Supervisión/administrador (`supervisor`) | Formatos institucionales, dashboard |
+No marcar «confirmada backend» sin evidencia. Extraer nombres y acciones del código actual durante auditoría.
 
-Esta distribución es una **decisión de navegación/diseño solicitada**, no una confirmación de autorización del backend. Actualmente `app/utils/permisos.ts` permite también otras rutas; no suprimir ni conceder accesos sin revisar requerimientos, comportamiento existente y backend. Las vistas compartidas se reutilizan y las operaciones se muestran según permisos efectivos.
+## Discrepancias
+Fuentes históricas pueden mencionar «administrador», «auxiliar administrativo» o «supervisión operativa». Verificar mapeo con DTO/guards antes de asociarlos a `supervisor` o `auxiliar`. No equiparar perfiles financieros con roles de Gestión.
