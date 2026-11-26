@@ -1,51 +1,44 @@
 # AGENTS.md — Frontend H3GA
 
 ## Propósito
-Trabajar **sobre el frontend existente** de H3GA, sin reconstruirlo ni sustituir su lógica por maquetas. La implementación debe ser fiel a los diseños Figma que el usuario coloque en `docs/05-modulos/`, funcionar en Nuxt y conservar las integraciones ya desarrolladas.
+Implementar el frontend existente de H3GA sobre Nuxt 4. No reconstruir el proyecto, reemplazar lógica por maquetas ni modificar backend. Cubrir las interfaces aprobadas, preservar integraciones existentes y entregar una experiencia coherente, accesible y responsiva.
 
 ## Fuentes y precedencia
-1. **Código actual del repositorio** (`app/`, `types/`, `nuxt.config.ts`, `package.json`, configuración y estilos): fuente de verdad sobre arquitectura, librerías instaladas, rutas, componentes, comportamiento y estado de implementación. Una llamada HTTP en el frontend no prueba por sí sola que el backend la soporte.
-2. **`docs/Tabla de requerimientos de los modulos.md`**: fuente principal del alcance funcional y de los RF/RNF; respetar su numeración vigente (RF-01 a RF-75, incluido `RF-9`) y no reutilizar numeraciones históricas de documentos desactualizados. Si el archivo no está disponible en el entorno de Codex, solicitarlo o indicar la limitación; no inventar sus requisitos.
-3. **`docs/Diccionario de datos.md`**: apoyo para terminología, entidades y relaciones; no implica que exista una API ni autoriza funcionalidades adicionales. Excluir el dominio H3GA Finanzas del frontend de Gestión salvo alcance explícito.
-4. **`docs/01-diseno-sistema/diseno-ui.md`** y **capturas de `docs/05-modulos/`**: fuente de verdad de identidad visual, estructura de pantallas, modales y formularios. Las capturas no autorizan inventar permisos, endpoints ni reglas de negocio.
-5. **`docs/02-arquitectura/arquitectura-frontend.md`, `docs/03-integracion-api/contratos-y-estados.md`, `docs/04-seguridad-y-roles/permisos-frontend.md`**: guías actualizadas, siempre contrastadas con código real y backend verificado.
+1. Código/configuración actuales: verdad sobre rutas, librerías, componentes, composables, tipos y comportamiento.
+2. `docs/Tabla de requerimientos de los modulos.md`: alcance y numeración oficial RF-01 a RF-75; conservar RF-9 exactamente.
+3. Backend vigente y Swagger/OpenAPI: única evidencia de endpoints, DTO, validaciones y permisos efectivos.
+4. Matriz/inventario de `docs/05-modulos/`: desglose operativo, siempre respaldado por RF y código.
+5. `diseno-ui.md` y capturas Figma: presentación, no contratos ni permisos.
+6. Guías de arquitectura, API y roles: contrastar con código/backend.
+7. `docs/08-prompts/`: procedimiento, nunca fuente autónoma de requisitos.
 
-Si hay contradicción entre el diseño y el código, preservar la funcionalidad y ajustar la presentación; si hay contradicción de negocio o seguridad, detener el cambio afectado y reportarla. Nunca usar los documentos históricos de `docs/00-contexto-general/` o `docs/08-prompts/` como fuente superior de requisitos.
+El diccionario de datos es apoyo conceptual, no prueba de API. Excluir H3GA Finanzas salvo alcance explícito. No usar documentos históricos ni rutas inexistentes como fuente superior. Si falta evidencia o hay contradicción de negocio/seguridad, registrar bloqueo y preguntar; no inventar.
 
-## Tecnología y reutilización
-- Nuxt 4, Vue 3, TypeScript, Nuxt UI 4, Tailwind CSS 4 y Pinia conforme a `package.json` real.
-- Revisar antes de crear: `app/pages/`, `app/components/`, `app/layouts/`, `app/composables/`, `app/stores/`, `app/utils/`, `app/types/` y `types/api.d.ts`.
-- Preferir componentes **Nuxt UI instalados**, personalizados según H3GA; mantener componentes Vue existentes si ya funcionan. No agregar bibliotecas por estética.
-- No sustituir APIs reales por mocks ni inventar endpoints. Usar `useApi()` y composables existentes; cotejar con Swagger/backend cuando se requiera afirmar compatibilidad.
+## Stack y reutilización
+Respetar `package.json`, lockfile y APIs de versiones instaladas. Stack observado: Nuxt 4, Vue 3, TypeScript, Nuxt UI 4, Tailwind CSS 4 y Pinia. Inspeccionar antes de crear `pages`, `components`, `layouts`, `composables`, `stores`, `utils`, tipos, CSS y configuración. Reutilizar componentes y `useApi()`; no agregar dependencias ni duplicar lógica sin justificación. No sustituir APIs reales por mocks.
 
-## Diseño H3GA
-- Tokens de referencia: `black #011818`, `white #FCFCFC`, `accent #FFCC00`, `secondary #4ECAD4`, `primary #003D3D`.
-- Respetar tipografía y tokens reales existentes; documentar y resolver antes de cambiar una discrepancia entre CSS/tema y la guía. El CSS actual contiene verde Nuxt UI predeterminado: **no confundirlo con la identidad de marca**.
-- Interfaces en español. Conservar jerarquía, espaciado, estados, iconografía y distribución de las capturas.
-- Capturas Figma por módulo en `docs/05-modulos/<modulo>/`, agrupadas por vista y dispositivo. Desktop **1920** y laptop **1440**: únicas referencias Figma esperadas. **Tablet 1024** y **móvil 400**: Codex debe diseñar las adaptaciones sin solicitar nuevas capturas. No tomar capturas tablet antiguas como referencia obligatoria. También comprobar tamaños intermedios.
-- Una sola implementación responsiva por interfaz; no cuatro páginas duplicadas. Modales, formularios, tablas, navegación y controles deben ser utilizables con teclado y tacto.
+## Diseño y responsive
+Colores H3GA: black `#011818`, white `#FCFCFC`, accent `#FFCC00`, secondary `#4ECAD4`, primary `#003D3D`. No modificar HEX ni tipografía sin autorización. Contrastar tema Nuxt UI/Tailwind con CSS real antes de cambios globales. Interfaces en español. Figma esperado: 1920 y 1440; Codex adapta 1024, 400 y anchos intermedios. Una sola interfaz fluida, sin páginas duplicadas. Accesibilidad de teclado, foco, contraste y tacto; sin scroll horizontal global accidental.
 
-## Seguridad e integración
-- Roles **reales del frontend**: `asesor`, `auxiliar`, `supervisor` (ver `app/types/sesion.ts` y `app/utils/permisos.ts`); distinguirlos de los nombres narrativos de la tabla de RF. No renombrar valores técnicos por estética.
-- `app/utils/permisos.ts`, `app/utils/menu.ts` y `app/middleware/auth.global.ts` definen navegación visible; **el backend impone autorización efectiva**. No inferir acceso por la sola presencia de una opción de menú.
-- Sesión actual en Pinia + `sessionStorage`; autenticación y errores centralizados en `useApi()`.
-- No modificar backend, esquema, migraciones ni almacenamiento de documentos sin instrucción explícita.
+## Roles y seguridad
+Roles técnicos: `asesor`, `auxiliar`, `supervisor`. Inspeccionar `permisos.ts`, `menu.ts`, middleware y store antes de cambios. Visibilidad UI no equivale a autorización backend. No alterar roles, rutas, sesión ni permisos sin evidencia y aprobación. No exponer tokens ni datos sensibles.
 
-## Flujo de trabajo
-1. Leer código, tabla de requerimientos, diccionario de apoyo y las cuatro guías actualizadas.
-2. Inventariar capturas existentes de `docs/05-modulos/` y relacionarlas con rutas, componentes, modales y formularios reales.
-3. Detectar qué ya existe y requiere únicamente adaptación visual; crear solo lo faltante.
-4. **Etapa 1: maquetación visual** de todos los módulos con capturas: preservar conexiones y lógica existentes; no crear integraciones nuevas ni simular guardados reales. Implementar navegación, modales, estados locales y componentes responsivos. **Etapa 2: integración funcional**, únicamente tras aprobación visual del usuario y con contratos backend verificados.
-5. Usar los patrones de **Nuxt UI 4** para alertas/notificaciones `success`, `warning`, `info`, `error` y diálogos de confirmación destructiva; no `window.alert/confirm/prompt`. Nunca ejecutar borrado sin confirmación.
-6. Verificar `pnpm typecheck`, `pnpm build`, `pnpm lint` cuando sea viable; usar navegador para comparar 1920/1440/1024/400 si está disponible. No declarar comprobaciones no realizadas.
-7. Reportar archivos modificados, módulos terminados, diferencias visuales, integraciones comprobadas y dependencias pendientes.
+## Distribución visual acordada
+- Asesor: gestión auxiliar, modalidades, pensión final/proceso final, servicios complementarios, biblioteca, dashboard y expediente mediante «Ver expediente».
+- Auxiliar: biblioteca, gestión documental y dashboard.
+- Supervisor: formatos institucionales y dashboard.
+Biblioteca y dashboard son compartidos. Esta distribución no elimina rutas existentes ni confirma permisos backend.
 
-**No realizar commits, pushes, PR, reset, stash ni cambios destructivos automáticamente.**
+## Plan obligatorio
+1. Auditar documentación, código, rutas, componentes, API, permisos e imágenes.
+2. Completar inventario y matriz antes de programar.
+3. Preparar shell y patrones globales.
+4. Implementar módulo por módulo, cerrando sus interfaces y verificaciones antes de avanzar.
+5. Preservar integraciones existentes; no añadir HTTP ni simular éxito durante maquetación.
+6. Obtener aprobación visual antes de nuevas integraciones.
+7. Actualizar matriz y checklist con evidencias.
 
-## Distribución visual solicitada por el usuario
-- **Asesor:** gestión auxiliar, modalidades, pensión final, servicios complementarios, biblioteca y dashboard; **expediente del cliente** es una vista a la que se llega desde «Ver expediente».
-- **Auxiliar:** biblioteca, gestión documental y dashboard.
-- **Supervisor (administrador):** formatos institucionales y dashboard.
-- Esta es la distribución de **módulos principales para el diseño**; no borra por sí sola las rutas o permisos existentes. Contrastar diferencias con `app/utils/permisos.ts`, requerimientos y backend antes de modificar autorizaciones.
-- Biblioteca y dashboard son módulos compartidos, no implementaciones duplicadas.
-- Las referencias Figma están exclusivamente en `docs/05-modulos/<modulo>/<interfaz>/desktop-1920.png` y `laptop-1440.png`, con nombres descriptivos equivalentes admitidos. Revisar también capturas de formularios, modales y estados.
+## Estados y calidad
+Representar carga, vacío, error, sin permisos, validación, éxito y advertencia. Usar patrones Nuxt UI 4 para notificaciones semánticas `success/warning/info/error`. Operaciones destructivas requieren diálogo accesible, cancelar, bloqueo de doble envío y resultado real. Nunca usar `window.alert/confirm/prompt` ni éxito ficticio.
+
+Ejecutar solo scripts existentes: `pnpm typecheck`, `pnpm lint`, `pnpm build` y pruebas disponibles. Si hay navegador, comparar 1920/1440 y probar 1024/400; declarar limitaciones. Reportar archivos, interfaces, pruebas ejecutadas, diferencias, integraciones y bloqueos. No hacer commits, pushes, PR, reset, stash ni cambios destructivos automáticamente.

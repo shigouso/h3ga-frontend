@@ -1,14 +1,28 @@
-# Prompt 1 — Analizar y preparar H3GA
+# Prompt 1 — Auditoría, análisis y plan maestro H3GA
 
-Trabaja sobre el repositorio Nuxt 4 existente. **En esta etapa no implementes ni modifiques interfaces**.
+Esta etapa es de análisis: **no implementar ni modificar interfaces**.
 
-1. Lee `AGENTS.md`, `docs/Tabla de requerimientos de los modulos.md` (fuente funcional), `docs/Diccionario de datos.md` (apoyo) y las cuatro guías `diseno-ui.md`, `arquitectura-frontend.md`, `contratos-y-estados.md`, `permisos-frontend.md`.
-2. Inspecciona el código real: `package.json`, Nuxt UI instalado, estilos, rutas, layouts, componentes, composables, stores, tipos, middleware y permisos.
-3. Inventaría todas las imágenes en `docs/05-modulos/`: módulo, interfaz, formulario/modal/estado y referencias **desktop 1920** y **laptop 1440**. No solicites tablet ni móvil.
-4. Contrasta el inventario de capturas con `docs/05-modulos/inventario-interfaces.md` y actualízalo solo con evidencia del repositorio.
-5. Identifica componentes compartidos, discrepancias entre colores H3GA y tema actual, rutas faltantes, lógica ya conectada y acciones aún no integradas.
-6. Respeta la distribución visual: asesor (gestión auxiliar, modalidades, pensión final, servicios complementarios, biblioteca, dashboard y expediente desde «Ver expediente»); auxiliar (biblioteca, gestión documental, dashboard); supervisor (formatos institucionales, dashboard). **No modifiques permisos efectivos sin verificar backend**.
-7. Elabora un plan por módulos para **Etapa 1: maquetación** y un listado separado para **Etapa 2: integraciones**.
-8. Define patrones compartidos Nuxt UI para `success`, `warning`, `info`, `error` y confirmación de borrado.
+## Fuentes
+Leer `AGENTS.md`, tabla oficial de RF, diccionario, cuatro guías, todo `docs/05-modulos/`, matriz, checklist y código. La tabla RF es alcance; diccionario es apoyo; código define estado técnico. Backend/Swagger verifica contratos.
 
-Entrega inventario, hallazgos, orden de implementación y riesgos. No hagas commits, push, PR ni cambios destructivos. No inventes pantallas, contratos ni requisitos ausentes.
+## Auditoría
+1. Inspeccionar package/lockfile, Nuxt config, tema/CSS, layouts, páginas, componentes, composables, stores, utils, tipos, middleware y permisos.
+2. Listar rutas existentes y destinos de menú sin página.
+3. Inventariar **cada imagen** de `docs/05-modulos/`: ruta, módulo, tipo, interfaz, tamaño y relación con vista. Incluir modales, formularios, secciones y estados.
+4. Para cada interfaz identificar página/componente, composable, formulario/campos, modal/disparador, acciones, estados, RF y rol.
+5. Separar existente, adaptación, creación, integración existente, no verificada y bloqueada.
+6. Detectar discrepancias de tema, recursos compartidos, nombres y resoluciones.
+7. Revisar referencias del dashboard y diferencias por rol.
+8. Verificar API/permisos con evidencia backend; no inventar.
+
+## Entregables
+- Inventario de interfaces actualizado.
+- Matriz con IDs, cobertura RF-01 a RF-75 y estado por interfaz.
+- Requisitos sin UI justificados.
+- Componentes globales y módulos ordenados por dependencias.
+- Riesgos, dudas, contratos y decisiones pendientes.
+- Plan separado para maquetación e integración.
+
+Distribución visual: asesor (gestión auxiliar, modalidades, pensión final, servicios complementarios, biblioteca, dashboard y expediente desde «Ver expediente»); auxiliar (biblioteca, gestión documental, dashboard); supervisor (formatos institucionales, dashboard). No modificar permisos.
+
+Plan sugerido: auditoría → base compartida → módulo por módulo → auditoría visual → aprobación → integración → auditoría funcional. No programar hasta aprobación del plan. No commits/push/PR ni cambios destructivos. No declarar pruebas no ejecutadas.

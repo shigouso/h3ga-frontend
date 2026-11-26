@@ -1,16 +1,20 @@
-# Prompt 3 — Auditar y corregir la maquetación H3GA
+# Prompt 3 — Auditoría y corrección frontend H3GA
 
-Audita la **Etapa 1 visual** antes de iniciar nuevas conexiones API.
+Auditar resultado contra matriz, RF, capturas y código. No iniciar integraciones nuevas sin aprobación explícita.
 
-1. Relee `AGENTS.md`, `diseno-ui.md`, `permisos-frontend.md`, `guia-referencias-figma.md` y el inventario.
-2. Compara cada interfaz con sus capturas **1920 desktop** y **1440 laptop**.
-3. Comprueba que las adaptaciones **1024 tablet** y **400 mobile** sean utilizables, sin desbordamiento horizontal accidental.
-4. Revisa layout, sidebar, navegación por rol, botón «Ver expediente», tablas, filtros, formularios, modales, estados vacíos y carga.
-5. Comprueba componentes Nuxt UI y variantes `success`, `warning`, `info`, `error`, más diálogos de confirmación de eliminación con cancelar/confirmar. No permitir borrados reales en la etapa visual.
-6. Verifica que no se hayan eliminado conexiones existentes, rutas, controles de acceso ni lógica de negocio.
-7. Ejecuta los comandos de tipado, lint, pruebas y build realmente disponibles. Si existe navegador, verifica capturas por tamaño; si no, indica que la revisión visual no se pudo completar.
-8. Corrige los defectos introducidos por la maquetación sin rediseñar funcionalidades aprobadas ni añadir endpoints.
+## Cobertura
+1. Cada imagen de `docs/05-modulos/` corresponde a interfaz o tiene justificación.
+2. RF-01 a RF-75 mapeados a UI, proceso backend o justificación.
+3. Revisar páginas, secciones, formularios, campos, modales, estados, filtros, tablas y acciones.
+4. Revisar roles, rutas, navegación y «Ver expediente» sin cambiar permisos.
+5. Verificar reutilización de biblioteca/dashboard.
+6. Confirmar que integraciones existentes no se rompieron y no se inventaron endpoints.
 
-Entrega: lista de interfaces revisadas, diferencias detectadas y corregidas, comprobaciones ejecutadas, regresiones, y lista de acciones reservadas para la **Etapa 2 de integración funcional**.
+## Visual y responsive
+Comparar 1920/1440 con Figma; probar 1024/400 e intermedios. Revisar shell, sidebar, tipografía, colores, iconos, tablas, formularios, modales, scroll y foco. Comprobar loading, vacío, error, sin permiso, validación, éxito y confirmación. Sin scroll global accidental ni controles cortados. Si no hay navegador/capturas, declarar limitación; no afirmar fidelidad comprobada.
 
-No hagas commits, push, PR, reset ni stash. No comiences la Etapa 2 sin aprobación del usuario.
+## Calidad y seguridad
+Ejecutar solo scripts presentes en package.json: typecheck, lint, build y pruebas existentes. Registrar comando y resultado. No declarar éxito si no se ejecutó. No exponer datos/tokens. UI no sustituye autorización backend. Destructivas requieren confirmación. No simular éxito ni conectar API no verificada.
+
+## Entrega
+Actualizar matriz, inventario y `docs/06-pruebas/checklist-frontend.md` con estado/evidencia. Reportar defectos, correcciones, interfaces revisadas, pruebas ejecutadas, regresiones, pendientes backend y bloqueos. No iniciar integración sin aprobación. No commits/push/PR/reset/stash.
